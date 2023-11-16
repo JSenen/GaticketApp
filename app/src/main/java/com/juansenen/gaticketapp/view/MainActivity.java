@@ -1,8 +1,10 @@
-package com.juansenen.gaticketapp;
+package com.juansenen.gaticketapp.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.juansenen.gaticketapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
