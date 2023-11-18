@@ -2,6 +2,7 @@ package com.juansenen.gaticketapp.presenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.juansenen.gaticketapp.contract.LoginContract;
@@ -36,14 +37,25 @@ public class LoginPresenter implements LoginContract.Presenter, LoginContract.Mo
     @Override
     public void onLoadUserSuccess(User user) {
         if (user != null ){
-            String rol = user.getUserRol();
+            String rol = user.getUserRol().toString();
+            //Guardamos los datos del usuario logueado
+            long id = user.getUserId();
+            String tip = user.getUserTip();
+            SharedPreferences sharedPreferences = context.getSharedPreferences("UserData",Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("user_id", String.valueOf(id));
+            editor.putString("user_tip",tip);
+            editor.apply();
+
             Log.d("TAG","Login como "+rol);
-            if (rol.equals(rol)){
+
+            if (rol.equals("usuario")){
                 view.showSnckBar("Login USUARIO correcto");
+
                 // Iniciar la actividad de usuario
                 Intent userIntent = new Intent(context, UserMainActivity.class);
                 context.startActivity(userIntent);
-            }  else if (rol.equals(rol)){
+            }  else if (rol.equals("administrador")){
                 view.showSnckBar("Login ADMINISTRADOR correcto");
                 //Iniciar la actividad de administrador
                 // TODO Realizar pantalla administrador
