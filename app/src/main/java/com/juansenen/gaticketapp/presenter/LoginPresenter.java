@@ -9,6 +9,7 @@ import com.juansenen.gaticketapp.contract.LoginContract;
 import com.juansenen.gaticketapp.domain.User;
 import com.juansenen.gaticketapp.model.LoginModel;
 import com.juansenen.gaticketapp.util.PasswordUtil;
+import com.juansenen.gaticketapp.view.AdminListActivity;
 import com.juansenen.gaticketapp.view.MainActivity;
 import com.juansenen.gaticketapp.view.UserMainActivity;
 
@@ -58,7 +59,8 @@ public class LoginPresenter implements LoginContract.Presenter, LoginContract.Mo
             }  else if (rol.equals("administrador")){
                 view.showSnckBar("Login ADMINISTRADOR correcto");
                 //Iniciar la actividad de administrador
-                // TODO Realizar pantalla administrador
+                Intent userIntent = new Intent(context, AdminListActivity.class);
+                context.startActivity(userIntent);
 
             }
         }
