@@ -4,4 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="pink">#FF4081</color>
     <color name="red">#D50000</color>
+    <color name="status_active">#D50000</color>
+    <color name="status_in_process">#FFCC41</color>
 </resources>
