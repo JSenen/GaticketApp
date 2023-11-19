@@ -182,6 +182,11 @@ public class UserMainActivity extends AppCompatActivity implements UserContract.
             startActivity(intent); // Cambiamos de Activity
             finish(); // Cerramos la actual
 
+        } else if (item.getItemId() == R.id.item_usermenu_list) {
+            //Enviar a listado incidencias
+            Intent intent = new Intent(this, UserListActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         return false;

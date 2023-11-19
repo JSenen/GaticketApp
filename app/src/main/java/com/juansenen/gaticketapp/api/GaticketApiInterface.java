@@ -26,6 +26,8 @@ public interface GaticketApiInterface {
     Call<List<Device>> getDeviceBySerial(@Query("deviceSerial") String deviceSerial);
     @GET("device")
     Call<List<Device>> getDeviceByMac(@Query("mac") String mac);
+    @GET("incidences/user/{userId}")
+    Call<List<Incidences>> loadAllIncidencesUser(@Path("userId") String userId);
 
     @POST("incidence/{userId}")
     Call<Incidences> addIncidence(@Path("userId") String id, @Body Incidences incidenceBody);
