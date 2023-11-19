@@ -17,6 +17,9 @@
         android:theme="@style/Theme.GaticketApp"
         tools:targetApi="31">
         <activity
+            android:name=".view.UserListActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.UserMainActivity"
             android:exported="false" />
         <activity

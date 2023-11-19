@@ -176,14 +176,6 @@ public class UserMainActivity extends AppCompatActivity implements UserContract.
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.item_usermenu_saveticket) {
             //Enviar a la pantalla grabar ticket
-/*
-            Intent intent = new Intent(this, LogedModLinesActivityView.class);
-            finish();
-            startActivity(intent);
-
-            return true;
-*/
-
         } else if (item.getItemId() == R.id.item_usermenu_exit) {
             //Enviar a la pagina de login inicial
             Intent intent = new Intent(this, MainActivity.class);
@@ -201,5 +193,8 @@ public class UserMainActivity extends AppCompatActivity implements UserContract.
             Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
             snackbar.show();
         }
+        Intent intent = new Intent(this, UserListActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
