@@ -28,6 +28,8 @@ public interface GaticketApiInterface {
     Call<List<Device>> getDeviceByMac(@Query("mac") String mac);
     @GET("incidences/user/{userId}")
     Call<List<Incidences>> loadAllIncidencesUser(@Path("userId") String userId);
+    @GET("incidences")
+    Call<List<Incidences>> loadAllIncidences();
 
     @POST("incidence/{userId}")
     Call<Incidences> addIncidence(@Path("userId") String id, @Body Incidences incidenceBody);
