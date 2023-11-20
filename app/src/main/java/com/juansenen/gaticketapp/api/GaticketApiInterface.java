@@ -30,6 +30,8 @@ public interface GaticketApiInterface {
     Call<List<Incidences>> loadAllIncidencesUser(@Path("userId") String userId);
     @GET("incidences")
     Call<List<Incidences>> loadAllIncidences();
+    @GET("incidences/{incidenceId}")
+    Call<Incidences> loadIncidenceById(@Path("incidenceId") long incidenceId);
 
     @POST("incidence/{userId}")
     Call<Incidences> addIncidence(@Path("userId") String id, @Body Incidences incidenceBody);

@@ -142,6 +142,15 @@
             android:text="TextView"
             android:textColor="#FFEB3B" />
 
+        <ImageButton
+            android:id="@+id/button_detail_incidence"
+            android:layout_width="67dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:background="#004C69"
+            android:backgroundTint="#004C69"
+            android:src="@drawable/baseline_remove_red_eye_24" />
+
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

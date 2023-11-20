@@ -1,9 +1,11 @@
 package com.juansenen.gaticketapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.juansenen.gaticketapp.R;
 import com.juansenen.gaticketapp.domain.Incidences;
+import com.juansenen.gaticketapp.view.AdminDetailActivity;
 
 import java.util.List;
 
@@ -37,6 +40,7 @@ public class AdminListAdapter extends RecyclerView.Adapter<AdminListAdapter.Admi
         holder.incidenceCommit.setText(incidencesList.get(position).getIncidenceCommit());
         // Configuración dinámica del estado
         configureState(holder, incidencesList.get(position));
+
     }
     /**
      * Configura el icono y color de texto del estado segun active o process
@@ -60,6 +64,7 @@ public class AdminListAdapter extends RecyclerView.Adapter<AdminListAdapter.Admi
 
     public class AdminListHolder extends RecyclerView.ViewHolder {
         public TextView incidenceTheme, incidendeDate, incidenceStatus, incidenceCommit;
+        public ImageButton buttonDetail;
         public View parentView;
 
         public AdminListHolder(View view){
@@ -71,7 +76,22 @@ public class AdminListAdapter extends RecyclerView.Adapter<AdminListAdapter.Admi
             incidendeDate = view.findViewById(R.id.txt_incidenceadmin_date);
             incidenceStatus = view.findViewById(R.id.txt_incidenceadmin_status);
             incidenceCommit = view.findViewById(R.id.txt_incidenceadmin_commit);
+
+            //Boton ver detalles incidencia
+            buttonDetail = view.findViewById(R.id.button_detail_incidence);
+            buttonDetail.setOnClickListener(see -> seeDetailIncidence(getAdapterPosition()));
+
+
         }
+    }
+
+    private void seeDetailIncidence(int adapterPosition) {
+        Incidences incidence = incidencesList.get(adapterPosition);
+        //Enviamos a la Activity y le pasamos el id de la incidencia
+        Intent intent = new Intent(context, AdminDetailActivity.class);
+        intent.putExtra("incidenceId", incidence.getIncidencesId());
+        context.startActivity(intent);
+
     }
 
 }

@@ -35,6 +35,8 @@ public class AdminListActivity extends AppCompatActivity implements AdminListCon
         presenter = new AdminListPresenter(this,this);
 
         initializeReciclerView();
+
+
     }
 
     /**
