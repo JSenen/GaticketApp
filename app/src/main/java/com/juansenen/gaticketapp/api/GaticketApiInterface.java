@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -31,7 +32,11 @@ public interface GaticketApiInterface {
     @GET("incidences")
     Call<List<Incidences>> loadAllIncidences();
     @GET("incidences/{incidenceId}")
-    Call<Incidences> loadIncidenceById(@Path("incidenceId") long incidenceId);
+    Call<Incidences> loadIncidenceById(@Path("incidenceId") String incidenceId);
+    @PATCH("incidence/{incidenceId}")
+    Call<Incidences> changeStatus(@Path("incidenceId") String incidenceId, @Body Incidences incidenceBody );
+    @PATCH("incidence/admin/{idIncidence}")
+    Call<Incidences> changeAdminIncidence(@Path("idIncidence") String incidenceId, @Body Incidences incidenceBody);
 
     @POST("incidence/{userId}")
     Call<Incidences> addIncidence(@Path("userId") String id, @Body Incidences incidenceBody);

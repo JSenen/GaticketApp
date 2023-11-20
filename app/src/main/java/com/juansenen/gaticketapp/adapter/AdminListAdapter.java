@@ -50,11 +50,17 @@ public class AdminListAdapter extends RecyclerView.Adapter<AdminListAdapter.Admi
     private void configureState(AdminListAdapter.AdminListHolder holder, Incidences incidences) {
         // Determina el estado y configura dinámicamente el icono, color y texto
         if (incidences.getIncidenceStatus().equals("active")) {
+            int colorActive = ContextCompat.getColor(context, R.color.status_active);
             holder.incidenceStatus.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_report_problem_24, 0, 0, 0);
             holder.incidenceStatus.setTextColor(ContextCompat.getColor(context, R.color.status_active));
+            holder.incidenceTxtStatus.setTextColor(colorActive);
+            holder.incidenceTxtStatus.setText("Activa");
         } else if (incidences.getIncidenceStatus().equals("process")) {
+            int colorProcess = ContextCompat.getColor(context, R.color.status_in_process);
             holder.incidenceStatus.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_schedule_24, 0, 0, 0);
             holder.incidenceStatus.setTextColor(ContextCompat.getColor(context, R.color.status_in_process));
+            holder.incidenceTxtStatus.setTextColor(colorProcess);
+            holder.incidenceTxtStatus.setText("En Proceso");
         }
     }
     @Override
@@ -63,7 +69,7 @@ public class AdminListAdapter extends RecyclerView.Adapter<AdminListAdapter.Admi
     }
 
     public class AdminListHolder extends RecyclerView.ViewHolder {
-        public TextView incidenceTheme, incidendeDate, incidenceStatus, incidenceCommit;
+        public TextView incidenceTheme, incidendeDate, incidenceStatus, incidenceCommit,incidenceTxtStatus;
         public ImageButton buttonDetail;
         public View parentView;
 
@@ -76,6 +82,7 @@ public class AdminListAdapter extends RecyclerView.Adapter<AdminListAdapter.Admi
             incidendeDate = view.findViewById(R.id.txt_incidenceadmin_date);
             incidenceStatus = view.findViewById(R.id.txt_incidenceadmin_status);
             incidenceCommit = view.findViewById(R.id.txt_incidenceadmin_commit);
+            incidenceTxtStatus = view.findViewById(R.id.textViewStatus);
 
             //Boton ver detalles incidencia
             buttonDetail = view.findViewById(R.id.button_detail_incidence);

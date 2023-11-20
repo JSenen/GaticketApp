@@ -50,8 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="Activa"
-                android:textColor="@color/status_active"
+                android:textColor="@color/status_in_process"
                 android:textSize="16sp" />
         </LinearLayout>
 
