@@ -1,10 +1,14 @@
 package com.juansenen.gaticketapp.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.juansenen.gaticketapp.R;
@@ -60,5 +64,34 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
 
         changeIncidenceStatus(incidence);
 
+    }
+
+    /**
+     * Opciones menu Action bar
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.admin_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.admin_menu_logout) {
+            //Enviar a la pantalla de Inicio
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent); // Cambiamos de Activity
+            finish(); // Cerramos la actual
+        } else if (item.getItemId() == R.id.admin_menu_list) {
+            //Enviar a la pagina listado incidencias
+            Intent intent = new Intent(this, AdminListActivity.class);
+            startActivity(intent); // Cambiamos de Activity
+            finish(); // Cerramos la actual
+
+        }
+
+        return false;
     }
 }
