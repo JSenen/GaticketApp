@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.juansenen.gaticketapp.contract.AdminDetailContract;
+import com.juansenen.gaticketapp.domain.Department;
 import com.juansenen.gaticketapp.domain.Incidences;
 import com.juansenen.gaticketapp.model.AdminDetailModel;
 import com.juansenen.gaticketapp.view.AdminDetailActivity;
@@ -33,6 +34,11 @@ public class AdminDetailPresenter implements AdminDetailContract.presenter, Admi
         view.showDataIncidence(incidence);
     }
 
+    @Override
+    public void getDepartmentDat(Department department) {
+        view.showDataDepartment(department);
+    }
+
 
     @Override
     public void changeStatusIncidence(long incidenceId) {
@@ -52,4 +58,12 @@ public class AdminDetailPresenter implements AdminDetailContract.presenter, Admi
     public void getDataIncidence(long incidenceId) {
         model.getDataIncidence(this, incidenceId);
     }
+
+    @Override
+    public void requestDepartmentUser(long userId) {
+        model.getDepartmentofUSer(this, userId);
+
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.juansenen.gaticketapp.api;
 
+import com.juansenen.gaticketapp.domain.Department;
 import com.juansenen.gaticketapp.domain.Device;
 import com.juansenen.gaticketapp.domain.Incidences;
 import com.juansenen.gaticketapp.domain.User;
@@ -40,5 +41,8 @@ public interface GaticketApiInterface {
 
     @POST("incidence/{userId}")
     Call<Incidences> addIncidence(@Path("userId") String id, @Body Incidences incidenceBody);
+
+    @GET("department/{idUser}")
+    Call<Department> getDepartmentUser(@Path("idUser") String idUser);
 
 }

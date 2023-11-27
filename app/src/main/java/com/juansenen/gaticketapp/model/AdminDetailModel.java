@@ -3,6 +3,7 @@ package com.juansenen.gaticketapp.model;
 import com.juansenen.gaticketapp.api.GaticketApi;
 import com.juansenen.gaticketapp.api.GaticketApiInterface;
 import com.juansenen.gaticketapp.contract.AdminDetailContract;
+import com.juansenen.gaticketapp.domain.Department;
 import com.juansenen.gaticketapp.domain.Incidences;
 import com.juansenen.gaticketapp.presenter.AdminDetailPresenter;
 
@@ -76,5 +77,28 @@ public class AdminDetailModel implements AdminDetailContract.model {
 
             }
         });
+    }
+
+    @Override
+    public void getDepartmentofUSer(changeIncidencesListener listener, long userId) {
+        String idString = String.valueOf(userId);
+        GaticketApiInterface api = GaticketApi.buildInstancce();
+        Call<Department> departmentCall = api.getDepartmentUser(idString);
+
+        departmentCall.enqueue(new Callback<Department>() {
+            @Override
+            public void onResponse(Call<Department> call, Response<Department> response) {
+                if (response.isSuccessful()){
+                    Department department = response.body();
+                    listener.getDepartmentDat(department);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Department> call, Throwable t) {
+
+            }
+        });
+
     }
 }

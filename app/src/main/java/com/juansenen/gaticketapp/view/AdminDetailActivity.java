@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.juansenen.gaticketapp.R;
 import com.juansenen.gaticketapp.contract.AdminDetailContract;
+import com.juansenen.gaticketapp.domain.Department;
 import com.juansenen.gaticketapp.domain.Incidences;
 import com.juansenen.gaticketapp.presenter.AdminDetailPresenter;
 
@@ -58,12 +59,32 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         //Recuperamos los datos de la incidencia
         TextView theme = findViewById(R.id.txt_detailIncidence_theme);
         TextView commit = findViewById(R.id.txt_detailIncidence_commit);
+        TextView user = findViewById(R.id.txt_detailIncidence_usertip);
+
 
         theme.setText(incidence.getIncidenceTheme().toString());
         commit.setText(incidence.getIncidenceCommit().toString());
+        user.setText(incidence.getUser().getUserTip().toString());
+        //Recuperar departamento usuario
+        long userId = incidence.getUser().getUserId();
+        getDepartment(userId);
+
 
         changeIncidenceStatus(incidence);
 
+    }
+
+    @Override
+    public void showDataDepartment(Department department) {
+        TextView departmentUser = findViewById(R.id.txt_detailIncidence_department);
+        TextView phone = findViewById(R.id.txt_detailIncidence_phone);
+
+        departmentUser.setText(department.getDepartmentName().toString());
+        phone.setText(department.getDepartmentPhone().toString());
+    }
+
+    private void getDepartment(long userId) {
+        presenter.requestDepartmentUser(userId);
     }
 
     /**
