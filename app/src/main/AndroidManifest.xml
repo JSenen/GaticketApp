@@ -4,6 +4,7 @@
     <!-- Permiso para conexion a red -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Permiso para usar almacenamiento externo del telefono -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- Permisos para llamr -->
 
     <application
         android:allowBackup="true"

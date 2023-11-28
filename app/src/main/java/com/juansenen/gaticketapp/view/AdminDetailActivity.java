@@ -2,10 +2,15 @@ package com.juansenen.gaticketapp.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,6 +21,7 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.juansenen.gaticketapp.R;
@@ -37,6 +43,8 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
     private long incidenceId;
     private long userId;
     private Button butSendMessage;
+    private static final int REQUEST_CALL_PHONE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,30 +53,33 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         Context context = this;
         //Recuperamos el Id del administrador
         SharedPreferences sharedPreferences = context.getSharedPreferences("UserData", Context.MODE_PRIVATE);
-        adminId = Integer.parseInt(sharedPreferences.getString("user_id",""));
+        adminId = Integer.parseInt(sharedPreferences.getString("user_id", ""));
 
 
         presenter = new AdminDetailPresenter(this, this);
         //recojemos el Id de la incidencia
-        incidenceId = getIntent().getLongExtra("incidenceId",0);
+        incidenceId = getIntent().getLongExtra("incidenceId", 0);
         //recuperamos datos de la incidencia
         getIncidence(incidenceId);
     }
+
     //Funcion obtener incidencias
     private void getIncidence(long incidenceId) {
         presenter.getDataIncidence(incidenceId);
     }
+
     //Funcion cambiarel estado de la incidencia a en proceso
     private void changeIncidenceStatus(Incidences incidenceBody) {
         incidenceBody.setIncidenceStatus("process");
         long incidenceId = incidenceBody.getIncidencesId();
-        presenter.changeStatusIncidence(incidenceId,incidenceBody);
+        presenter.changeStatusIncidence(incidenceId, incidenceBody);
 
         //Añadimos a la incidencia
         incidenceBody.setAdminId(adminId);
         presenter.changeAdminIncidence(incidenceId, incidenceBody);
 
     }
+
     //Funcion mostrar los datos de la incidencia
     public void showDataIncidence(Incidences incidence) {
 
@@ -85,18 +96,20 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         userId = incidence.getUser().getUserId();
         getDepartment(userId);
         //Recuperar los mensajes
-        Log.d("TAG","Activity  showDataIncidence() ---> recuperar mensajes");
+        Log.d("TAG", "Activity  showDataIncidence() ---> recuperar mensajes");
         long incidenceId = incidence.getIncidencesId();
         getMessages(incidenceId);
 
         changeIncidenceStatus(incidence);
 
     }
+
     //Funcion obtener mensajes
     private void getMessages(long incidenceId) {
         Log.d("TAG", "Activity call presenter getMessages( " + incidenceId + " )");
-       presenter.getMessages(incidenceId);
+        presenter.getMessages(incidenceId);
     }
+
     //Funcion mostar los mensajes
     @Override
     public void showAllMessages(List<Messages> messagesList) {
@@ -107,7 +120,6 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
     public void messageSendOk() {
         getMessages(incidenceId);
     }
-
 
 
     //Funcion añadir mensaje a la tabla
@@ -127,6 +139,7 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         // Añade una fila vacía como separador
         addEmptyRowToTable(tableLayout);
     }
+
     //Funcion para poner color a los mensajes
     private void addRowToTableWithColors(String key, String value, TableLayout tableLayout, int backgroundColorResId, int textColorResId) {
         TableRow row = new TableRow(this);
@@ -153,6 +166,7 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
 
         tableLayout.addView(row);
     }
+
     //Funcion general mostar mensajes. Recorre todo el array recibido
     public void showMessagesIncidence(List<Messages> messages) {
         TableLayout tableMessages = findViewById(R.id.table_messages);
@@ -165,6 +179,7 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
             addMessageToTable(message, tableMessages);
         }
     }
+
     //Funcion añade a la tabla de mensajes 1 linea
     private void addRowToTable(String key, String value, TableLayout tableLayout) {
         TableRow row = new TableRow(this);
@@ -179,12 +194,12 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         valueTextView.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
 
 
-
         row.addView(keyTextView);
         row.addView(valueTextView);
 
         tableLayout.addView(row);
     }
+
     //Fucion para añadir una linea vacia
     private void addEmptyRowToTable(TableLayout tableLayout) {
         // Añade una fila vacía como separador
@@ -192,6 +207,7 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         emptyRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
         tableLayout.addView(emptyRow);
     }
+
     //Funcion para mostrar el Departamento
     @Override
     public void showDataDepartment(Department department) {
@@ -208,38 +224,43 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
 
     /**
      * Boton enviar mensaje
+     *
      * @param view
      */
-    public void sendMessage(View view){
+    public void sendMessage(View view) {
         //Recuperamos el cuerpo del mensaje
         TextInputEditText textoCommit = findViewById(R.id.edtxt_mensajer);
         Messages messageBody = new Messages();
         String messageCommit = textoCommit.getText().toString();
         messageBody.setMessageCommit(messageCommit);
         messageBody.setTimeMessage(obtenerFechaHoraActual());
-        Log.d("TAG","Activity call presenter sendMessage "+ incidenceId + " Fecha : "+ messageBody.getTimeMessage());
+        Log.d("TAG", "Activity call presenter sendMessage " + incidenceId + " Fecha : " + messageBody.getTimeMessage());
         presenter.sendMessage(adminId, incidenceId, messageBody);
 
     }
 
     /**
      * Boton reactivar Incidencia
+     *
      * @param view
      */
-    public void reactivateIncidence(View view){
+    public void reactivateIncidence(View view) {
         Incidences incidenceBody = new Incidences();
         incidenceBody.setIncidenceStatus("reactivate");
-        Log.d("TAG","Desde Activity llamada a presenter idIncidence = "+incidenceId+" status = " + incidenceBody.getIncidenceStatus());
+        Log.d("TAG", "Desde Activity llamada a presenter idIncidence = " + incidenceId + " status = " + incidenceBody.getIncidenceStatus());
         presenter.reactivateInicidence(incidenceId, incidenceBody);
     }
+
     public static String obtenerFechaHoraActual() {
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
         Date fechaHoraActual = new Date();
 
         return formato.format(fechaHoraActual);
     }
+
     /**
      * Opciones menu Action bar
+     *
      * @param menu
      * @return
      */
@@ -277,4 +298,57 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         startActivity(intent);
         finish();
     }
+
+    /**
+     * Boton de llamada. Se realiza llamada al numero del departamento que figura en la incidencia
+     */
+    public void makeCall(View view) {
+        if (checkPermission()) {
+            // Si ya se tienen los permisos, realiza la llamada
+            realizarLlamada();
+        } else {
+            // Si no se tienen los permisos, solicita los permisos
+            requestPermission();
+        }
+
+    }
+
+    public void realizarLlamada() {
+        String numberPhone = String.valueOf(findViewById(R.id.txt_detailIncidence_phone));
+        Uri uri = Uri.parse("tel:" + Uri.encode(numberPhone));
+        Intent intent = new Intent(Intent.ACTION_CALL, uri);
+        startActivity(intent);
+    }
+
+    private boolean checkPermission() {
+        // Verifica si se tienen los permisos necesarios
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermission() {
+        // Solicita permisos en tiempo de ejecución
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{Manifest.permission.CALL_PHONE},
+                REQUEST_CALL_PHONE
+        );
+    }
+
+    // Este método se llama después de que el usuario responde a la solicitud de permisos
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == REQUEST_CALL_PHONE) {
+            // Verifica si el usuario otorgó los permisos
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Si el permiso es concedido, realiza la llamada
+                realizarLlamada();
+            } else {
+                Toast.makeText(this,"Permiso necesario para realizar la llamada", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
 }
