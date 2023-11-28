@@ -17,6 +17,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.juansenen.gaticketapp.R;
 import com.juansenen.gaticketapp.contract.AdminDetailContract;
 import com.juansenen.gaticketapp.domain.Department;
@@ -24,12 +25,17 @@ import com.juansenen.gaticketapp.domain.Incidences;
 import com.juansenen.gaticketapp.domain.Messages;
 import com.juansenen.gaticketapp.presenter.AdminDetailPresenter;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class AdminDetailActivity extends AppCompatActivity implements AdminDetailContract.view {
 
     private AdminDetailPresenter presenter;
     private int adminId;
+    private long incidenceId;
+    private long userId;
     private Button butSendMessage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +50,15 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
 
         presenter = new AdminDetailPresenter(this, this);
         //recojemos el Id de la incidencia
-        long incidenceId = getIntent().getLongExtra("incidenceId",0);
+        incidenceId = getIntent().getLongExtra("incidenceId",0);
         //recuperamos datos de la incidencia
         getIncidence(incidenceId);
     }
-
+    //Funcion obtener incidencias
     private void getIncidence(long incidenceId) {
         presenter.getDataIncidence(incidenceId);
     }
-
+    //Funcion cambiarel estado de la incidencia a en proceso
     private void changeIncidenceStatus(Incidences incidenceBody) {
         incidenceBody.setIncidenceStatus("process");
         long incidenceId = incidenceBody.getIncidencesId();
@@ -63,7 +69,7 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         presenter.changeAdminIncidence(incidenceId, incidenceBody);
 
     }
-
+    //Funcion mostrar los datos de la incidencia
     public void showDataIncidence(Incidences incidence) {
 
         //Recuperamos los datos de la incidencia
@@ -76,7 +82,7 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         commit.setText(incidence.getIncidenceCommit().toString());
         user.setText(incidence.getUser().getUserTip().toString());
         //Recuperar departamento usuario
-        long userId = incidence.getUser().getUserId();
+        userId = incidence.getUser().getUserId();
         getDepartment(userId);
         //Recuperar los mensajes
         Log.d("TAG","Activity  showDataIncidence() ---> recuperar mensajes");
@@ -86,15 +92,23 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         changeIncidenceStatus(incidence);
 
     }
-
+    //Funcion obtener mensajes
     private void getMessages(long incidenceId) {
         Log.d("TAG", "Activity call presenter getMessages( " + incidenceId + " )");
        presenter.getMessages(incidenceId);
     }
+    //Funcion mostar los mensajes
     @Override
     public void showAllMessages(List<Messages> messagesList) {
         showMessagesIncidence((messagesList));
     }
+
+    @Override
+    public void messageSendOk() {
+        getMessages(incidenceId);
+    }
+
+    //Funcion añadir mensaje a la tabla
     private void addMessageToTable(Messages message, TableLayout tableLayout) {
         // Fila 1: Fecha
         addRowToTable("Fecha", message.getTimeMessage().toString(), tableLayout);
@@ -111,6 +125,7 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         // Añade una fila vacía como separador
         addEmptyRowToTable(tableLayout);
     }
+    //Funcion para poner color a los mensajes
     private void addRowToTableWithColors(String key, String value, TableLayout tableLayout, int backgroundColorResId, int textColorResId) {
         TableRow row = new TableRow(this);
 
@@ -136,7 +151,7 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
 
         tableLayout.addView(row);
     }
-
+    //Funcion general mostar mensajes. Recorre todo el array recibido
     public void showMessagesIncidence(List<Messages> messages) {
         TableLayout tableMessages = findViewById(R.id.table_messages);
 
@@ -148,7 +163,7 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
             addMessageToTable(message, tableMessages);
         }
     }
-
+    //Funcion añade a la tabla de mensajes 1 linea
     private void addRowToTable(String key, String value, TableLayout tableLayout) {
         TableRow row = new TableRow(this);
 
@@ -168,13 +183,14 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
 
         tableLayout.addView(row);
     }
-
+    //Fucion para añadir una linea vacia
     private void addEmptyRowToTable(TableLayout tableLayout) {
         // Añade una fila vacía como separador
         TableRow emptyRow = new TableRow(this);
         emptyRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
         tableLayout.addView(emptyRow);
     }
+    //Funcion para mostrar el Departamento
     @Override
     public void showDataDepartment(Department department) {
         TextView departmentUser = findViewById(R.id.txt_detailIncidence_department);
@@ -183,8 +199,6 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         departmentUser.setText(department.getDepartmentName().toString());
         phone.setText(department.getDepartmentPhone().toString());
     }
-
-
 
     private void getDepartment(long userId) {
         presenter.requestDepartmentUser(userId);
@@ -195,9 +209,22 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
      * @param view
      */
     public void sendMessage(View view){
+        //Recuperamos el cuerpo del mensaje
+        TextInputEditText textoCommit = findViewById(R.id.edtxt_mensajer);
+        Messages messageBody = new Messages();
+        String messageCommit = textoCommit.getText().toString();
+        messageBody.setMessageCommit(messageCommit);
+        messageBody.setTimeMessage(obtenerFechaHoraActual());
+        Log.d("TAG","Activity call presenter sendMessage "+ incidenceId + " Fecha : "+ messageBody.getTimeMessage());
+        presenter.sendMessage(adminId, incidenceId, messageBody);
 
     }
+    public static String obtenerFechaHoraActual() {
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+        Date fechaHoraActual = new Date();
 
+        return formato.format(fechaHoraActual);
+    }
     /**
      * Opciones menu Action bar
      * @param menu

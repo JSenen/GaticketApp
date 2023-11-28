@@ -48,5 +48,7 @@ public interface GaticketApiInterface {
 
     @GET("messages/{idIncidence}")
     Call<List<Messages>> getMessages(@Path("idIncidence") String idIncidence);
+    @POST("messages/{idIncidence}/{idEmisor}")
+    Call<Messages> sendMessage(@Path("idIncidence") String idIncidence, @Path("idEmisor") String idEmisor, @Body Messages messageBody);
 
 }

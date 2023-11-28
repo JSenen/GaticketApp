@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.juansenen.gaticketapp.contract.AdminDetailContract;
 import com.juansenen.gaticketapp.domain.Department;
 import com.juansenen.gaticketapp.domain.Incidences;
@@ -76,5 +77,15 @@ public class AdminDetailPresenter implements AdminDetailContract.presenter, Admi
     public void getMessagesOK(List<Messages> messagesList) {
         Log.d("TAG"," Presenter call to view showMessagesIncidence = "+ messagesList);
         view.showMessagesIncidence(messagesList);
+    }
+
+    public void sendMessage(int adminId, long incidenceId, Messages messageBody) {
+        Log.d("TAG","Presenter call model sendMessage( "+ incidenceId + ")");
+        model.sendMessage(this, adminId, incidenceId, messageBody);
+    }
+    @Override
+    public void sendMessageToApi(Messages messageBody) {
+        Log.d("TAG", "Model call view messageSendOk");
+        view.messageSendOk();
     }
 }

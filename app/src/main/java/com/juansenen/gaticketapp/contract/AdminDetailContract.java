@@ -1,5 +1,6 @@
 package com.juansenen.gaticketapp.contract;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.juansenen.gaticketapp.domain.Department;
 import com.juansenen.gaticketapp.domain.Incidences;
 import com.juansenen.gaticketapp.domain.Messages;
@@ -16,6 +17,7 @@ public interface AdminDetailContract {
             void getDataIncidence(Incidences incidence);
             void getDepartmentDat(Department department);
             void getMessagesOK(List<Messages> messagesList);
+            void sendMessageToApi(Messages messageBody);
 
         }
         void changeStatus(changeIncidencesListener listener, long idIncidence, Incidences incidencesBody);
@@ -23,12 +25,14 @@ public interface AdminDetailContract {
         void getDataIncidence(changeIncidencesListener listener, long incidenceId);
         void getDepartmentofUSer(changeIncidencesListener listener, long userId);
         void getAllMessages(changeIncidencesListener listener, long idIncidence);
+        void sendMessage(changeIncidencesListener listener, int adminId, long incidenceId, Messages messageBody);
 
     }
     interface view {
         void showDataIncidence(Incidences incidence);
         void showDataDepartment(Department department);
         void showAllMessages(List<Messages> messagesList);
+        void messageSendOk();
      
     }
     interface presenter {

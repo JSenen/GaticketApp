@@ -129,4 +129,30 @@ public class AdminDetailModel implements AdminDetailContract.model {
         });
     }
 
+    @Override
+    public void sendMessage(changeIncidencesListener listener, int adminId, long incidenceId, Messages messageBody) {
+        Log.d("TAG","On model call POST api");
+        String idInci = String.valueOf(incidenceId);
+        String idEmisor = String.valueOf(adminId);
+        GaticketApiInterface api = GaticketApi.buildInstancce();
+        Call<Messages> messagesCall = api.sendMessage(idInci,idEmisor,messageBody);
+
+        messagesCall.enqueue(new Callback<Messages>() {
+            @Override
+            public void onResponse(Call<Messages> call, Response<Messages> response) {
+                if (response.isSuccessful()){
+                    Log.d("TAG","Model POST message " + response.body());
+                    Messages messagesRequest = response.body();
+                    listener.sendMessageToApi(messagesRequest);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Messages> call, Throwable t) {
+
+            }
+        });
+
+    }
+
 }
