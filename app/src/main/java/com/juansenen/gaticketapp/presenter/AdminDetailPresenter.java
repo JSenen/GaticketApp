@@ -88,4 +88,12 @@ public class AdminDetailPresenter implements AdminDetailContract.presenter, Admi
         Log.d("TAG", "Model call view messageSendOk");
         view.messageSendOk();
     }
+
+    public void reactivateInicidence(long incidenceId, Incidences incidenceBody) {
+        model.reactivate(this, incidenceId, incidenceBody);
+    }
+    @Override
+    public void incidenceActiveAgain() {
+        view.changeIncidence();
+    }
 }

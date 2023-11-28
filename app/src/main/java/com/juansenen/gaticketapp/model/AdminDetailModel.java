@@ -155,4 +155,25 @@ public class AdminDetailModel implements AdminDetailContract.model {
 
     }
 
+    @Override
+    public void reactivate(changeIncidencesListener listener, long incidenceId, Incidences incidenceBody) {
+        String id = String.valueOf(incidenceId);
+        Log.d("TAG","Call to api to reactivate incidenceID "+id+" to status " + incidenceBody.getIncidenceStatus());
+        GaticketApiInterface api = GaticketApi.buildInstancce();
+        Call<Incidences> incidencesCall = api.reactivateIncidence(id, incidenceBody);
+        incidencesCall.enqueue(new Callback<Incidences>() {
+            @Override
+            public void onResponse(Call<Incidences> call, Response<Incidences> response) {
+                if (response.isSuccessful()){
+                    listener.incidenceActiveAgain();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Incidences> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

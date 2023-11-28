@@ -108,6 +108,8 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         getMessages(incidenceId);
     }
 
+
+
     //Funcion añadir mensaje a la tabla
     private void addMessageToTable(Messages message, TableLayout tableLayout) {
         // Fila 1: Fecha
@@ -219,6 +221,17 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         presenter.sendMessage(adminId, incidenceId, messageBody);
 
     }
+
+    /**
+     * Boton reactivar Incidencia
+     * @param view
+     */
+    public void reactivateIncidence(View view){
+        Incidences incidenceBody = new Incidences();
+        incidenceBody.setIncidenceStatus("reactivate");
+        Log.d("TAG","Desde Activity llamada a presenter idIncidence = "+incidenceId+" status = " + incidenceBody.getIncidenceStatus());
+        presenter.reactivateInicidence(incidenceId, incidenceBody);
+    }
     public static String obtenerFechaHoraActual() {
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
         Date fechaHoraActual = new Date();
@@ -252,5 +265,16 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         }
 
         return false;
+    }
+
+    /**
+     * Funcion que nos envia a el listado de incidencias
+     * despues de haber reactivado la actual
+     */
+    @Override
+    public void changeIncidence() {
+        Intent intent = new Intent(this, AdminListActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

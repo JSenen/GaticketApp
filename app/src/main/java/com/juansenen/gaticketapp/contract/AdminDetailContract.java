@@ -18,6 +18,7 @@ public interface AdminDetailContract {
             void getDepartmentDat(Department department);
             void getMessagesOK(List<Messages> messagesList);
             void sendMessageToApi(Messages messageBody);
+            void incidenceActiveAgain();
 
         }
         void changeStatus(changeIncidencesListener listener, long idIncidence, Incidences incidencesBody);
@@ -26,6 +27,7 @@ public interface AdminDetailContract {
         void getDepartmentofUSer(changeIncidencesListener listener, long userId);
         void getAllMessages(changeIncidencesListener listener, long idIncidence);
         void sendMessage(changeIncidencesListener listener, int adminId, long incidenceId, Messages messageBody);
+        void reactivate(changeIncidencesListener listener, long incidenceId, Incidences incidenceBody);
 
     }
     interface view {
@@ -33,7 +35,8 @@ public interface AdminDetailContract {
         void showDataDepartment(Department department);
         void showAllMessages(List<Messages> messagesList);
         void messageSendOk();
-     
+
+        void changeIncidence();
     }
     interface presenter {
         void changeStatusIncidence(long incidenceId);
