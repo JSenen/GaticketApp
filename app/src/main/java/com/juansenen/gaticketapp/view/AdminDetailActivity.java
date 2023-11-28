@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -94,21 +95,60 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
     public void showAllMessages(List<Messages> messagesList) {
         showMessagesIncidence((messagesList));
     }
+    private void addMessageToTable(Messages message, TableLayout tableLayout) {
+        // Fila 1: Fecha
+        addRowToTable("Fecha", message.getTimeMessage().toString(), tableLayout);
+
+        // Fila 2: Emisor
+        addRowToTable("Emisor", message.getEmisorMessage().getUserTip().toString(), tableLayout);
+
+        if (message.getEmisorMessage().getUserId() == adminId) {
+            // Fila 3: Mensaje cambio color si el mensaje es del admin
+            addRowToTableWithColors("Mensaje", message.getMessageCommit().toString(), tableLayout, R.color.colorFondoMensaje, R.color.colorTextoMensaje);
+        } else {
+            addRowToTable("Mensaje", message.getMessageCommit().toString(), tableLayout);
+        }
+        // Añade una fila vacía como separador
+        addEmptyRowToTable(tableLayout);
+    }
+    private void addRowToTableWithColors(String key, String value, TableLayout tableLayout, int backgroundColorResId, int textColorResId) {
+        TableRow row = new TableRow(this);
+
+        TextView keyTextView = new TextView(this);
+        keyTextView.setText(key);
+        keyTextView.setPadding(5, 5, 5, 5);
+
+        TextView valueTextView = new TextView(this);
+        valueTextView.setText(value);
+        valueTextView.setPadding(5, 5, 5, 5);
+        valueTextView.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
+
+        // Obtener colores de recursos
+        int backgroundColor = getResources().getColor(backgroundColorResId);
+        int textColor = getResources().getColor(textColorResId);
+
+        // Aplicar colores al fondo y al texto del mensaje
+        valueTextView.setBackgroundColor(backgroundColor);
+        valueTextView.setTextColor(textColor);
+
+        row.addView(keyTextView);
+        row.addView(valueTextView);
+
+        tableLayout.addView(row);
+    }
 
     public void showMessagesIncidence(List<Messages> messages) {
-        Log.d("Messages List size", String.valueOf(messages.size()));
-        //Recuperamos la tabla
         TableLayout tableMessages = findViewById(R.id.table_messages);
-        for (Messages message: messages){
-            addRowToTable("Emisor", message.getEmisorMessage().getUserTip().toString(), tableMessages);
-            addRowToTable("Mensaje", message.getMessageCommit().toString(), tableMessages);
-            addRowToTable("Tiempo del Mensaje", message.getTimeMessage().toString(), tableMessages);
 
-            // Añade una fila vacía como separador )
-            addEmptyRowToTable(tableMessages);
+        // Limpiar cualquier contenido existente en la tabla
+        tableMessages.removeAllViews();
+
+        // Agregar filas de mensajes
+        for (Messages message : messages) {
+            addMessageToTable(message, tableMessages);
         }
     }
-    // Función para añadir una fila a la tabla
+
     private void addRowToTable(String key, String value, TableLayout tableLayout) {
         TableRow row = new TableRow(this);
 
@@ -119,6 +159,9 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         TextView valueTextView = new TextView(this);
         valueTextView.setText(value);
         valueTextView.setPadding(5, 5, 5, 5);
+        valueTextView.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
+
+
 
         row.addView(keyTextView);
         row.addView(valueTextView);
@@ -126,15 +169,12 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         tableLayout.addView(row);
     }
 
-    // Función para añadir una fila vacía como separador entre mensajes
     private void addEmptyRowToTable(TableLayout tableLayout) {
-        TableRow row = new TableRow(this);
-        TextView emptyTextView = new TextView(this);
-        emptyTextView.setText(""); //poner un espacio en blanco u otro carácter
-        row.addView(emptyTextView);
-        tableLayout.addView(row);
+        // Añade una fila vacía como separador
+        TableRow emptyRow = new TableRow(this);
+        emptyRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+        tableLayout.addView(emptyRow);
     }
-
     @Override
     public void showDataDepartment(Department department) {
         TextView departmentUser = findViewById(R.id.txt_detailIncidence_department);

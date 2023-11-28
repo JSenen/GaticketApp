@@ -167,15 +167,18 @@
             app:iconGravity="textStart"
             app:rippleColor="#304FFE" />
 
-        <TableLayout
-            android:id="@+id/table_messages"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="272dp" >
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-            <TableRow
+            <TableLayout
+                android:id="@+id/table_messages"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </TableLayout>
+                android:layout_height="wrap_content">
+
+            </TableLayout>
+        </ScrollView>
 
     </LinearLayout>
 
