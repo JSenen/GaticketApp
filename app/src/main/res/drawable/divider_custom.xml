@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Fondo del divisor -->
+    <item android:drawable="?android:attr/listDivider" />
+
+    <!-- Sombra superior -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#0149ab" /> <!-- Ajusta el color y la opacidad -->
+            <corners android:radius="10dp" /> <!-- Ajusta el radio de las esquinas -->
+        </shape>
+    </item>
+
+</layer-list>

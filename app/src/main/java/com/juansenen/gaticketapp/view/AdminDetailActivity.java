@@ -7,20 +7,29 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.juansenen.gaticketapp.R;
 import com.juansenen.gaticketapp.contract.AdminDetailContract;
 import com.juansenen.gaticketapp.domain.Department;
 import com.juansenen.gaticketapp.domain.Incidences;
+import com.juansenen.gaticketapp.domain.Messages;
 import com.juansenen.gaticketapp.presenter.AdminDetailPresenter;
+
+import java.util.List;
 
 public class AdminDetailActivity extends AppCompatActivity implements AdminDetailContract.view {
 
     private AdminDetailPresenter presenter;
     private int adminId;
+    private Button butSendMessage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,10 +77,62 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         //Recuperar departamento usuario
         long userId = incidence.getUser().getUserId();
         getDepartment(userId);
-
+        //Recuperar los mensajes
+        Log.d("TAG","Activity  showDataIncidence() ---> recuperar mensajes");
+        long incidenceId = incidence.getIncidencesId();
+        getMessages(incidenceId);
 
         changeIncidenceStatus(incidence);
 
+    }
+
+    private void getMessages(long incidenceId) {
+        Log.d("TAG", "Activity call presenter getMessages( " + incidenceId + " )");
+       presenter.getMessages(incidenceId);
+    }
+    @Override
+    public void showAllMessages(List<Messages> messagesList) {
+        showMessagesIncidence((messagesList));
+    }
+
+    public void showMessagesIncidence(List<Messages> messages) {
+        Log.d("Messages List size", String.valueOf(messages.size()));
+        //Recuperamos la tabla
+        TableLayout tableMessages = findViewById(R.id.table_messages);
+        for (Messages message: messages){
+            addRowToTable("Emisor", message.getEmisorMessage().getUserTip().toString(), tableMessages);
+            addRowToTable("Mensaje", message.getMessageCommit().toString(), tableMessages);
+            addRowToTable("Tiempo del Mensaje", message.getTimeMessage().toString(), tableMessages);
+
+            // Añade una fila vacía como separador )
+            addEmptyRowToTable(tableMessages);
+        }
+    }
+    // Función para añadir una fila a la tabla
+    private void addRowToTable(String key, String value, TableLayout tableLayout) {
+        TableRow row = new TableRow(this);
+
+        TextView keyTextView = new TextView(this);
+        keyTextView.setText(key);
+        keyTextView.setPadding(5, 5, 5, 5);
+
+        TextView valueTextView = new TextView(this);
+        valueTextView.setText(value);
+        valueTextView.setPadding(5, 5, 5, 5);
+
+        row.addView(keyTextView);
+        row.addView(valueTextView);
+
+        tableLayout.addView(row);
+    }
+
+    // Función para añadir una fila vacía como separador entre mensajes
+    private void addEmptyRowToTable(TableLayout tableLayout) {
+        TableRow row = new TableRow(this);
+        TextView emptyTextView = new TextView(this);
+        emptyTextView.setText(""); //poner un espacio en blanco u otro carácter
+        row.addView(emptyTextView);
+        tableLayout.addView(row);
     }
 
     @Override
@@ -83,8 +144,18 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         phone.setText(department.getDepartmentPhone().toString());
     }
 
+
+
     private void getDepartment(long userId) {
         presenter.requestDepartmentUser(userId);
+    }
+
+    /**
+     * Boton enviar mensaje
+     * @param view
+     */
+    public void sendMessage(View view){
+
     }
 
     /**

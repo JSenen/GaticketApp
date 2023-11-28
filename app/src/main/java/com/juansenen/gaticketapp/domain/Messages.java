@@ -1,12 +1,10 @@
 package com.juansenen.gaticketapp.domain;
 
-import java.time.LocalDateTime;
-
 public class Messages {
 
     private long idMenssage;
     private String messageCommit;
-    private LocalDateTime timeMessage;
+    private String timeMessage;
     private Incidences incidenciaMessage;
     private User emisorMessage; // Puede ser Usuario o Administrador
 
@@ -26,11 +24,11 @@ public class Messages {
         this.messageCommit = messageCommit;
     }
 
-    public LocalDateTime getTimeMessage() {
+    public String getTimeMessage() {
         return timeMessage;
     }
 
-    public void setTimeMessage(LocalDateTime timeMessage) {
+    public void setTimeMessage(String timeMessage) {
         this.timeMessage = timeMessage;
     }
 

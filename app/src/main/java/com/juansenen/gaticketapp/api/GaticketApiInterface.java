@@ -3,6 +3,7 @@ package com.juansenen.gaticketapp.api;
 import com.juansenen.gaticketapp.domain.Department;
 import com.juansenen.gaticketapp.domain.Device;
 import com.juansenen.gaticketapp.domain.Incidences;
+import com.juansenen.gaticketapp.domain.Messages;
 import com.juansenen.gaticketapp.domain.User;
 
 import java.util.List;
@@ -44,5 +45,8 @@ public interface GaticketApiInterface {
 
     @GET("department/{idUser}")
     Call<Department> getDepartmentUser(@Path("idUser") String idUser);
+
+    @GET("messages/{idIncidence}")
+    Call<List<Messages>> getMessages(@Path("idIncidence") String idIncidence);
 
 }

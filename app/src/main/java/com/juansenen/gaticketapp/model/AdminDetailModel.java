@@ -1,12 +1,16 @@
 package com.juansenen.gaticketapp.model;
 
+import android.util.Log;
+
+import com.google.gson.Gson;
 import com.juansenen.gaticketapp.api.GaticketApi;
 import com.juansenen.gaticketapp.api.GaticketApiInterface;
 import com.juansenen.gaticketapp.contract.AdminDetailContract;
 import com.juansenen.gaticketapp.domain.Department;
 import com.juansenen.gaticketapp.domain.Incidences;
-import com.juansenen.gaticketapp.presenter.AdminDetailPresenter;
+import com.juansenen.gaticketapp.domain.Messages;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -101,4 +105,28 @@ public class AdminDetailModel implements AdminDetailContract.model {
         });
 
     }
+
+    @Override
+    public void getAllMessages(changeIncidencesListener listener, long idIncidence) {
+        String id = String.valueOf(idIncidence);
+        GaticketApiInterface api = GaticketApi.buildInstancce();
+        Call<List<Messages>> messagelist = api.getMessages(id);
+        Log.d("TAG","Model call to api IdIncidence = "+id);
+        messagelist.enqueue(new Callback<List<Messages>>() {
+            @Override
+            public void onResponse(Call<List<Messages>> call, Response<List<Messages>> response) {
+                if (response.isSuccessful()){
+                    List<Messages> messages = response.body();
+                    Log.d("TAG","Response call to lister contract = "+ messages);
+                    listener.getMessagesOK(messages);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Messages>> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

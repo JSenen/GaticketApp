@@ -2,12 +2,16 @@ package com.juansenen.gaticketapp.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.juansenen.gaticketapp.contract.AdminDetailContract;
 import com.juansenen.gaticketapp.domain.Department;
 import com.juansenen.gaticketapp.domain.Incidences;
+import com.juansenen.gaticketapp.domain.Messages;
 import com.juansenen.gaticketapp.model.AdminDetailModel;
 import com.juansenen.gaticketapp.view.AdminDetailActivity;
+
+import java.util.List;
 
 public class AdminDetailPresenter implements AdminDetailContract.presenter, AdminDetailContract.model.changeIncidencesListener {
 
@@ -39,7 +43,6 @@ public class AdminDetailPresenter implements AdminDetailContract.presenter, Admi
         view.showDataDepartment(department);
     }
 
-
     @Override
     public void changeStatusIncidence(long incidenceId) {
 
@@ -65,5 +68,13 @@ public class AdminDetailPresenter implements AdminDetailContract.presenter, Admi
 
     }
 
-
+    public void getMessages(long incidenceId) {
+        Log.d("TAG","Presenter call model getAllMessages( "+ incidenceId + ")");
+        model.getAllMessages(this,incidenceId);
+    }
+    @Override
+    public void getMessagesOK(List<Messages> messagesList) {
+        Log.d("TAG"," Presenter call to view showMessagesIncidence = "+ messagesList);
+        view.showMessagesIncidence(messagesList);
+    }
 }
