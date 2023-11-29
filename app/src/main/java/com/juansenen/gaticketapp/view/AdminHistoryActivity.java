@@ -2,7 +2,6 @@ package com.juansenen.gaticketapp.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,49 +10,40 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.juansenen.gaticketapp.R;
+import com.juansenen.gaticketapp.adapter.AdminHistoryAdapter;
 import com.juansenen.gaticketapp.adapter.AdminListAdapter;
-import com.juansenen.gaticketapp.adapter.UserListAdapter;
-import com.juansenen.gaticketapp.contract.AdminListContract;
-import com.juansenen.gaticketapp.domain.Incidences;
-import com.juansenen.gaticketapp.presenter.AdminListPresenter;
+import com.juansenen.gaticketapp.contract.AdminHistoryContract;
+import com.juansenen.gaticketapp.domain.IncidencesHistory;
+import com.juansenen.gaticketapp.presenter.AdminHistoryPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminListActivity extends AppCompatActivity implements AdminListContract.view {
+public class AdminHistoryActivity extends AppCompatActivity implements AdminHistoryContract.view {
 
-    private AdminListPresenter presenter;
-    private List<Incidences> incidences;
-    private AdminListAdapter adapter;
+    private AdminHistoryPresenter presenter;
+    private List<IncidencesHistory> incidencesHistoryList;
+    private AdminHistoryAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_list);
+        setContentView(R.layout.activity_admin_hisotry);
 
-        presenter = new AdminListPresenter(this,this);
-
-        initializeReciclerView();
-
-
+        presenter = new AdminHistoryPresenter(this,this);
+        initializeRecicler();
     }
 
-    /**
-     * Inicializa el ReciclerView
-     */
-    private void initializeReciclerView() {
+    private void initializeRecicler() {
+        incidencesHistoryList = new ArrayList<>();
 
-        incidences = new ArrayList<>();
-
-        RecyclerView recyclerView = findViewById(R.id.rcview_admin_list_incidences);
+        RecyclerView recyclerView = findViewById(R.id.rcview_history);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new AdminListAdapter(this, incidences);
+        adapter = new AdminHistoryAdapter(this, incidencesHistoryList);
         recyclerView.setAdapter(adapter);
     }
-
     /**
      * Llamada al presenter
      */
@@ -61,28 +51,15 @@ public class AdminListActivity extends AppCompatActivity implements AdminListCon
     protected void onResume() {
         super.onResume();
         //Llamada al metodo del presenter
-        presenter.loadAllIncidences();
+        presenter.loadAllHistory();
     }
 
-    /**
-     * recobe del presenter
-     * @param incidencesList
-     */
     @Override
-    public void showIncidencesAdmin(List<Incidences> incidencesList) {
-        incidences.clear();
-        incidences.addAll(incidencesList);
+    public void showIncidencesList(List<IncidencesHistory> historyList) {
+        incidencesHistoryList.clear();
+        incidencesHistoryList.addAll(historyList);
         adapter.notifyDataSetChanged();
     }
-
-    @Override
-    public void showSnackBar(String message) {
-        if (message != null) {
-            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
-            snackbar.show();
-        }
-    }
-
 
     /**
      * Opciones menu Action bar

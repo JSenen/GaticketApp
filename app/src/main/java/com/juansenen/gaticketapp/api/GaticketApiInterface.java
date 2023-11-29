@@ -54,5 +54,7 @@ public interface GaticketApiInterface {
     Call<IncidencesHistory> saveEndIncidence(@Body IncidencesHistory incidencesHistory);
     @DELETE("incidence/{incidenceId}")
     Call<Void> deleteAfterSave(@Path("incidenceId") String incidenceId);
+    @GET("history")
+    Call<List<IncidencesHistory>> getAllHistory();
 
 }

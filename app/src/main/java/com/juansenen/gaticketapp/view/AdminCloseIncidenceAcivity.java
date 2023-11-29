@@ -117,6 +117,11 @@ public class AdminCloseIncidenceAcivity extends AppCompatActivity implements Adm
             startActivity(intent); // Cambiamos de Activity
             finish(); // Cerramos la actual
 
+        }else if (item.getItemId() == R.id.admin_menu_history) {
+            //Enviar a listados de historiales
+            Intent intent = new Intent(this, AdminHistoryActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         return false;

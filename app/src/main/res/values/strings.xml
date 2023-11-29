@@ -9,4 +9,5 @@
     <string name="mensaje">Mensaje</string>
     <string name="solucion">solucion</string>
     <string name="introduzca_soluci_n_aportada">Introduzca solución aportada...</string>
+    <string name="historial">HISTORIAL</string>
 </resources>

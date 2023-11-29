@@ -11,7 +11,7 @@
     android:layout_marginTop="6dp"
     android:layout_marginRight="6dp"
     android:layout_marginBottom="6dp"
-    app:cardBackgroundColor="@color/material_dynamic_primary30"
+    app:cardBackgroundColor="#EADB8D"
     app:cardElevation="10dp"
     app:cardMaxElevation="10dp"
     app:contentPadding="25dp">
@@ -24,37 +24,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="58dp"
-                android:layout_height="wrap_content"
-                android:text="ESTADO"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txt_incidenceadmin_status"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center_vertical"
-                android:drawableStart="@android:drawable/btn_radio"
-                android:drawableLeft="@android:drawable/btn_radio"
-                android:drawablePadding="4dp"
-                android:gravity="center_vertical"
-                android:text="Activa"
-                android:textColor="@color/status_active" />
-
-            <TextView
-                android:id="@+id/textViewStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:textColor="@color/status_in_process"
-                android:textSize="16sp" />
-        </LinearLayout>
+            android:orientation="horizontal"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,7 +71,7 @@
                 android:layout_weight="1"
                 android:padding="3dp"
                 android:text="TextView"
-                android:textColor="#FFEB3B" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/txt_history_date"
@@ -111,7 +81,7 @@
                 android:gravity="center"
                 android:padding="3dp"
                 android:text="TextView"
-                android:textColor="#FFEB3B" />
+                android:textColor="@color/black" />
 
         </LinearLayout>
 
@@ -140,7 +110,7 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="TextView"
-            android:textColor="#FFEB3B" />
+            android:textColor="@color/black" />
 
         <ImageButton
             android:id="@+id/button_detail_history"

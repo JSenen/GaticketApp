@@ -3,11 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/admin_menu_logout"
+        android:id="@+id/admin_menu_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:icon="@drawable/baseline_exit_to_app_24"
-        android:title="logout"
+        android:title="History"
         app:showAsAction="always" />
     <item
         android:id="@+id/admin_menu_list"
@@ -15,5 +14,12 @@
         android:layout_height="wrap_content"
         android:icon="@drawable/baseline_format_list_numbered_24"
         android:title="list_incidences"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/admin_menu_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/baseline_exit_to_app_24"
+        android:title="logout"
         app:showAsAction="always" />
 </menu>

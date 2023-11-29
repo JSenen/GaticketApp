@@ -16,8 +16,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -28,7 +26,6 @@ import com.juansenen.gaticketapp.R;
 import com.juansenen.gaticketapp.contract.AdminDetailContract;
 import com.juansenen.gaticketapp.domain.Department;
 import com.juansenen.gaticketapp.domain.Incidences;
-import com.juansenen.gaticketapp.domain.IncidencesHistory;
 import com.juansenen.gaticketapp.domain.Messages;
 import com.juansenen.gaticketapp.presenter.AdminDetailPresenter;
 
@@ -284,6 +281,11 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
             startActivity(intent); // Cambiamos de Activity
             finish(); // Cerramos la actual
 
+        } else if (item.getItemId() == R.id.admin_menu_history) {
+            //Enviar a listados de historiales
+            Intent intent = new Intent(this, AdminHistoryActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         return false;

@@ -78,14 +78,14 @@ public class AdminListAdapter extends RecyclerView.Adapter<AdminListAdapter.Admi
             super(view);
             parentView = view;
 
-            incidenceTheme = view.findViewById(R.id.txt_incidenceadmin_theme);
-            incidendeDate = view.findViewById(R.id.txt_incidenceadmin_date);
+            incidenceTheme = view.findViewById(R.id.txt_history_theme);
+            incidendeDate = view.findViewById(R.id.txt_history_date);
             incidenceStatus = view.findViewById(R.id.txt_incidenceadmin_status);
-            incidenceCommit = view.findViewById(R.id.txt_incidenceadmin_commit);
+            incidenceCommit = view.findViewById(R.id.txt_history_commit);
             incidenceTxtStatus = view.findViewById(R.id.textViewStatus);
 
             //Boton ver detalles incidencia
-            buttonDetail = view.findViewById(R.id.button_detail_incidence);
+            buttonDetail = view.findViewById(R.id.button_detail_history);
             buttonDetail.setOnClickListener(see -> seeDetailIncidence(getAdapterPosition()));
 
 

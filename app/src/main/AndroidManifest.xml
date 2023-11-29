@@ -18,6 +18,9 @@
         android:theme="@style/Theme.GaticketApp"
         tools:targetApi="31">
         <activity
+            android:name=".view.AdminHistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.AdminCloseIncidenceAcivity"
             android:exported="false" />
         <activity
