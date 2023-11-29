@@ -28,6 +28,7 @@ import com.juansenen.gaticketapp.R;
 import com.juansenen.gaticketapp.contract.AdminDetailContract;
 import com.juansenen.gaticketapp.domain.Department;
 import com.juansenen.gaticketapp.domain.Incidences;
+import com.juansenen.gaticketapp.domain.IncidencesHistory;
 import com.juansenen.gaticketapp.domain.Messages;
 import com.juansenen.gaticketapp.presenter.AdminDetailPresenter;
 
@@ -42,7 +43,7 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
     private int adminId;
     private long incidenceId;
     private long userId;
-    private Button butSendMessage;
+    private TextView theme, commit, user;
     private static final int REQUEST_CALL_PHONE = 1;
 
     @Override
@@ -84,14 +85,14 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
     public void showDataIncidence(Incidences incidence) {
 
         //Recuperamos los datos de la incidencia
-        TextView theme = findViewById(R.id.txt_detailIncidence_theme);
-        TextView commit = findViewById(R.id.txt_detailIncidence_commit);
-        TextView user = findViewById(R.id.txt_detailIncidence_usertip);
-
+        theme = findViewById(R.id.txt_detailIncidence_theme);
+        commit = findViewById(R.id.txt_detailIncidence_commit);
+        user = findViewById(R.id.txt_detailIncidence_usertip);
 
         theme.setText(incidence.getIncidenceTheme().toString());
         commit.setText(incidence.getIncidenceCommit().toString());
         user.setText(incidence.getUser().getUserTip().toString());
+
         //Recuperar departamento usuario
         userId = incidence.getUser().getUserId();
         getDepartment(userId);
@@ -349,6 +350,20 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
                 Toast.makeText(this,"Permiso necesario para realizar la llamada", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    /**
+     * Boton de finalizar la incidencia
+     * Se envia a la pantalla de finalizacion para que aporte la solucion y la archive
+     * @param view
+     */
+    public void endIncidence(View view){
+        Log.d("TAG","Activity DETAIL send Activity Solution idIncidecne = "+incidenceId);
+        Intent intent = new Intent(this, AdminCloseIncidenceAcivity.class);
+        intent.putExtra("incidenceId", incidenceId);
+        intent.putExtra("adminId", adminId);
+        startActivity(intent);
+
     }
 
 }

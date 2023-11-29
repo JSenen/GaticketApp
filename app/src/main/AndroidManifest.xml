@@ -4,7 +4,7 @@
     <!-- Permiso para conexion a red -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Permiso para usar almacenamiento externo del telefono -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- Permisos para llamr -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GaticketApp"
         tools:targetApi="31">
+        <activity
+            android:name=".view.AdminCloseIncidenceAcivity"
+            android:exported="false" />
         <activity
             android:name=".view.AdminDetailActivity"
             android:exported="false" />

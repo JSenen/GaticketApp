@@ -9,17 +9,9 @@ public class IncidencesHistory {
     private String historyTip;
     private String historyTheme;
     private String historyCommit;
-    private Date historyDateFinish;
+    private String historyDateFinish;
     private String historyAdmin;
     private String historySolution;
-
-    public long getIdhistory() {
-        return idhistory;
-    }
-
-    public void setIdhistory(long idhistory) {
-        this.idhistory = idhistory;
-    }
 
     public String getHistoryTip() {
         return historyTip;
@@ -45,11 +37,11 @@ public class IncidencesHistory {
         this.historyCommit = historyCommit;
     }
 
-    public Date getHistoryDateFinish() {
+    public String getHistoryDateFinish() {
         return historyDateFinish;
     }
 
-    public void setHistoryDateFinish(Date historyDateFinish) {
+    public void setHistoryDateFinish(String historyDateFinish) {
         this.historyDateFinish = historyDateFinish;
     }
 
