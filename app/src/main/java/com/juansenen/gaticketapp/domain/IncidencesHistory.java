@@ -60,4 +60,12 @@ public class IncidencesHistory {
     public void setHistorySolution(String historySolution) {
         this.historySolution = historySolution;
     }
+
+    public long getIdhistory() {
+        return idhistory;
+    }
+
+    public void setIdhistory(long idhistory) {
+        this.idhistory = idhistory;
+    }
 }

@@ -1,6 +1,7 @@
 package com.juansenen.gaticketapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.juansenen.gaticketapp.R;
+import com.juansenen.gaticketapp.domain.DataToTransfer;
 import com.juansenen.gaticketapp.domain.Incidences;
 import com.juansenen.gaticketapp.domain.IncidencesHistory;
+import com.juansenen.gaticketapp.view.AdminHistoryDetail;
 
 import java.util.List;
 
@@ -46,6 +49,7 @@ public class AdminHistoryAdapter extends RecyclerView.Adapter<AdminHistoryAdapte
         public ImageButton buttonDetail;
         public View parentView;
 
+
         public AdminHistoryHolder(View view) {
 
             super(view);
@@ -55,6 +59,24 @@ public class AdminHistoryAdapter extends RecyclerView.Adapter<AdminHistoryAdapte
             date = view.findViewById(R.id.txt_history_date);
             commit = view.findViewById(R.id.txt_history_commit);
 
+            buttonDetail = view.findViewById(R.id.button_detail_history);
+            buttonDetail.setOnClickListener( see -> seeDetailHistory(getAdapterPosition()));
+
+        }
+
+        private void seeDetailHistory(int adapterPosition) {
+
+            //Obtenemos la clase para transferir datos
+            DataToTransfer dataToTransfer = DataToTransfer.getInstance();
+            //Rellenamos con los datos
+            dataToTransfer.setTheme(incidencesList.get(adapterPosition).getHistoryTheme().toString());
+            dataToTransfer.setCommit(incidencesList.get(adapterPosition).getHistoryCommit().toString());
+            dataToTransfer.setDate(incidencesList.get(adapterPosition).getHistoryDateFinish().toString());
+            dataToTransfer.setSolution(incidencesList.get(adapterPosition).getHistorySolution().toString());
+            dataToTransfer.setUser(incidencesList.get(adapterPosition).getHistoryTip().toString());
+
+            Intent intent = new Intent(context, AdminHistoryDetail.class);
+            context.startActivity(intent);
 
         }
     }
