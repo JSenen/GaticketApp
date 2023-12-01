@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements LoginContract.Vie
     @Override
     public void showSnckBar(String message) {
         if (message != null) {
-            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT);
+            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
             snackbar.show();
         }
     }
