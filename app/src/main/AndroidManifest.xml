@@ -18,6 +18,9 @@
         android:theme="@style/Theme.GaticketApp"
         tools:targetApi="31">
         <activity
+            android:name=".view.AdminChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.AdminHistoryDetail"
             android:exported="false" />
         <activity

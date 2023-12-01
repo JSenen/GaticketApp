@@ -286,6 +286,10 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
             Intent intent = new Intent(this, AdminHistoryActivity.class);
             startActivity(intent);
             finish();
+        }else if (item.getItemId() == R.id.admin_menu_chatbot) {
+            Intent intent = new Intent(this, AdminChatActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         return false;

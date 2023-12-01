@@ -7,4 +7,5 @@ package com.juansenen.gaticketapp.api;
 public class Constantes {
 
     public static String BASE_URL ="http://192.168.1.130:8080/";
+    public static String BASE_OPENAAI ="https://api.openai.com";
 }
