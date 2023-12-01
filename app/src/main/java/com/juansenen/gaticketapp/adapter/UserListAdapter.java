@@ -1,9 +1,11 @@
 package com.juansenen.gaticketapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.juansenen.gaticketapp.R;
 import com.juansenen.gaticketapp.domain.Incidences;
+import com.juansenen.gaticketapp.view.UserDetailActivity;
 
 import java.util.List;
 
@@ -63,6 +66,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
     public class UserListHolder extends RecyclerView.ViewHolder {
         public TextView incidenceTheme, incidendeDate, incidenceStatus, incidenceCommit;
         public View parentView;
+        public Button seeIncidence;
 
         public UserListHolder(View view){
 
@@ -73,7 +77,26 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
             incidendeDate = view.findViewById(R.id.txt_incidenceuser_date);
             incidenceStatus = view.findViewById(R.id.txt_incidenceuser_status);
             incidenceCommit = view.findViewById(R.id.txt_incidenceuser_commit);
+
+            seeIncidence = view.findViewById(R.id.button_user_seeIncidence);
+            seeIncidence.setOnClickListener(see -> seeIncidence(getAdapterPosition()));
         }
+    }
+
+    private void seeIncidence(int adapterPosition){
+        Incidences incidencesToSee = incidences.get(adapterPosition);
+        long idIncidence = incidencesToSee.getIncidencesId();
+        String incidenceTheme = incidencesToSee.getIncidenceTheme();
+        String incidenceCommit = incidencesToSee.getIncidenceCommit();
+
+        //Pasamos los datos de la incidencie a la activity
+        Intent intent = new Intent(context, UserDetailActivity.class);
+        intent.putExtra("idIncidence", idIncidence);
+        intent.putExtra("incidenceTheme",incidenceTheme);
+        intent.putExtra("incidenceCommit",incidenceCommit);
+        context.startActivity(intent);
+
+
     }
 
 }

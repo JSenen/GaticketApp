@@ -50,7 +50,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="Activa"
                 android:textColor="@color/status_active"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -141,6 +140,15 @@
             android:padding="3dp"
             android:text="TextView"
             android:textColor="#FFEB3B" />
+
+        <Button
+            android:id="@+id/button_user_seeIncidence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00C853"
+            android:gravity="center"
+            android:onClick="seeDetailIncidence"
+            android:text="Ver" />
 
     </LinearLayout>
 
