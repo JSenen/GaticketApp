@@ -234,6 +234,7 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         messageBody.setTimeMessage(obtenerFechaHoraActual());
         Log.d("TAG", "Activity call presenter sendMessage " + incidenceId + " Fecha : " + messageBody.getTimeMessage());
         presenter.sendMessage(adminId, incidenceId, messageBody);
+        textoCommit.setText("");
 
     }
 

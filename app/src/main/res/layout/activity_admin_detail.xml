@@ -218,10 +218,10 @@
                     android:layout_gravity="center"
                     android:onClick="sendMessage"
                     android:text="Enviar"
+                    android:backgroundTint="#304FFE"
                     app:icon="@android:drawable/ic_menu_send"
                     app:iconGravity="textStart"
-                    app:rippleColor="#304FFE"
-                    android:backgroundTint="#304FFE"
+                    app:rippleColor="#FF5733"
                     />
 
                 <Button

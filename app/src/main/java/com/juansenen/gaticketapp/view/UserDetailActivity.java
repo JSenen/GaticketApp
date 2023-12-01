@@ -178,6 +178,7 @@ public class UserDetailActivity extends AppCompatActivity implements UserDetailC
         messageBody.setTimeMessage(obtenerFechaHoraActual());
         Log.d("TAG", "Activity call presenter sendMessage " + incidenceId + " Fecha : " + messageBody.getTimeMessage());
         presenter.sendMessage(userId, incidenceId, messageBody);
+        textoCommit.setText("");
 
     }
     /**
