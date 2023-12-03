@@ -7,8 +7,8 @@
     tools:context=".view.AdminChatActivity">
 
     <LinearLayout
-        android:layout_width="375dp"
-        android:layout_height="518dp"
+        android:layout_width="391dp"
+        android:layout_height="658dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -63,7 +63,7 @@
             <TextView
                 android:id="@+id/edittext_response"
                 android:layout_width="match_parent"
-                android:layout_height="76dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:textColor="@android:color/black"
