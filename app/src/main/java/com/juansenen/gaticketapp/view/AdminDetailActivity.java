@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
     private long incidenceId;
     private long userId;
     private TextView theme, commit, user;
+    private String rol;
     private static final int REQUEST_CALL_PHONE = 1;
 
     @Override
@@ -49,11 +51,18 @@ public class AdminDetailActivity extends AppCompatActivity implements AdminDetai
         setContentView(R.layout.activity_admin_detail);
 
         Context context = this;
-        //Recuperamos el Id del administrador
+        //Recuperamos el Id del administrador y el rol
         SharedPreferences sharedPreferences = context.getSharedPreferences("UserData", Context.MODE_PRIVATE);
         adminId = Integer.parseInt(sharedPreferences.getString("user_id", ""));
+        rol = sharedPreferences.getString("user_rol","administrador");
 
-
+        ImageButton buttonReactivate = findViewById(R.id.reactivate_button);
+        //Si el rol no es superusuario, la funcion reactivar no se ve
+        if (rol.equals("superusuario")) {
+            buttonReactivate.setVisibility(View.VISIBLE);
+        }else{
+            buttonReactivate.setVisibility(View.GONE);
+        }
         presenter = new AdminDetailPresenter(this, this);
         //recojemos el Id de la incidencia
         incidenceId = getIntent().getLongExtra("incidenceId", 0);

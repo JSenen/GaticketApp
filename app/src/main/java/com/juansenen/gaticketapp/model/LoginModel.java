@@ -12,7 +12,7 @@ import com.juansenen.gaticketapp.util.PasswordUtil;
 
 import java.util.List;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
+import org.mindrot.jbcrypt.BCrypt;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,6 +34,7 @@ public class LoginModel implements LoginContract.Model {
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 try {
                     Log.d("TAG", "Response: " + new Gson().toJson(response.body()));
+                    Log.d("TAG"," Contraseña dada "+ userPass);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -44,9 +45,10 @@ public class LoginModel implements LoginContract.Model {
                     // Obtenemos el primer usuario de la lista
                     User userSearch = userList.get(0);
 
-                    boolean isPassWordCorrect = PasswordUtil.checkPassword(userPass, userSearch.getUserPassword());
 
-                    if (isPassWordCorrect) {
+                    //boolean isPassWordCorrect = PasswordUtil.checkPassword(userPass, userSearch.getUserPassword());
+
+                    if (BCrypt.checkpw(userPass, userSearch.getUserPassword())) {
                         listener.onLoadUserSuccess(userSearch);
                     } else {
                         listener.onLoadUserError("Error: Contraseña incorrecta");

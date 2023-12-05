@@ -42,10 +42,12 @@ public class LoginPresenter implements LoginContract.Presenter, LoginContract.Mo
             //Guardamos los datos del usuario logueado
             long id = user.getUserId();
             String tip = user.getUserTip();
+
             SharedPreferences sharedPreferences = context.getSharedPreferences("UserData",Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("user_id", String.valueOf(id));
             editor.putString("user_tip",tip);
+            editor.putString("user_rol",rol);
             editor.apply();
 
             Log.d("TAG","Login como "+rol);
@@ -56,7 +58,7 @@ public class LoginPresenter implements LoginContract.Presenter, LoginContract.Mo
                 // Iniciar la actividad de usuario
                 Intent userIntent = new Intent(context, UserMainActivity.class);
                 context.startActivity(userIntent);
-            }  else if (rol.equals("administrador")){
+            }  else if (rol.equals("administrador") || rol.equals("superusuario")){
                 view.showSnckBar("Login ADMINISTRADOR correcto");
                 //Iniciar la actividad de administrador
                 Intent userIntent = new Intent(context, AdminListActivity.class);
