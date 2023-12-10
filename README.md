@@ -36,4 +36,4 @@ El acceso a la apliación dispone de 3 tipos de usuarios con distintos roles y f
 >```
 ***
 ## GRAFICO PANTALLAS
-![Imagen](https://github.com/JSenen/GaticketApp/blob/main/PANTALLAS ANDROID.png)
+![Imagen](https://github.com/JSenen/GaticketApp/blob/main/PANTALLAS_ANDROID.png)
