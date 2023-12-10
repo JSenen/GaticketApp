@@ -1,6 +1,6 @@
 [![Android](https://img.shields.io/badge/Android-33-green.svg?style=flat&logo=android)](https://www.android.com/)
 [![Retrofit2](https://img.shields.io/badge/Retrofit-2-<COLOR>?style=flat&logo=<ICON>&logoColor=white)](https://square.github.io/retrofit/)
-[![Java Version](https://img.shields.io/badge/Java%17Version-17-brightgreen.svg)](https://www.java.com/)
+[![Java](https://img.shields.io/badge/Java-red?style=for-the-badge&logo=Java&logoColor=white)](https://www.java.com/)
 
 
 
@@ -36,3 +36,4 @@ El acceso a la apliación dispone de 3 tipos de usuarios con distintos roles y f
 >```
 ***
 ## GRAFICO PANTALLAS
+![Imagen](https://github.com/JSenen/GaticketApp/blob/main/PANTALLAS ANDROID.png)
