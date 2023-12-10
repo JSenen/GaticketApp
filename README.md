@@ -1,6 +1,7 @@
-[![Platform](https://img.shields.io/badge/Platform-Android-green.svg)](https://www.android.com/)
-[![Platform](https://img.shields.io/badge/Platform-Android-green.svg)](https://www.android.com/)
-[![Retrofit2](https://img.shields.io/badge/Retrofit-2-orange.svg)](https://square.github.io/retrofit/)
+[![Android](https://img.shields.io/badge/Android-33-green.svg?style=flat&logo=android)](https://www.android.com/)
+[![Retrofit2](https://img.shields.io/badge/Retrofit-2-<COLOR>?style=flat&logo=<ICON>&logoColor=white)](https://square.github.io/retrofit/)
+[![Java Version](https://img.shields.io/badge/Java%17Version-17-brightgreen.svg)](https://www.java.com/)
+
 
 
 # GaticketApp 
@@ -34,3 +35,4 @@ El acceso a la apliación dispone de 3 tipos de usuarios con distintos roles y f
 > api.key=************************
 >```
 ***
+## GRAFICO PANTALLAS
